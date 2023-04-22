@@ -7,7 +7,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name="shoppingCart")
+@Table(name="shopping_cart")
 public class ShoppingCart{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

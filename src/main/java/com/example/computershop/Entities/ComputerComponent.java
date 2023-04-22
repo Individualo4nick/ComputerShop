@@ -7,7 +7,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name="computerComponents")
+@Table(name="computer_components")
 public class ComputerComponent{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
