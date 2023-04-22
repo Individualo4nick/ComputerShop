@@ -32,6 +32,7 @@ public class User implements UserDetails {
         return Collections.singleton(role);
     }
 
+
     @Override
     public String getUsername() {
         return name;
