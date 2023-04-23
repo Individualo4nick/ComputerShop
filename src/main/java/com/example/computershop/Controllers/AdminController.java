@@ -28,11 +28,11 @@ public class AdminController {
                            @RequestParam int warranty_in_month, @RequestParam MultipartFile img) throws NoSuchAlgorithmException {
         ComputerComponent computerComponent = new ComputerComponent(title, producer, discription, price, warranty_in_month);
         computerComponentService.addComponent(computerComponent, img);
-        return "redirect:/cloth/all";
+        return "redirect:/component/all";
     }
     @PostMapping("/delete_comment")
     public String DeleteComment(@RequestParam Long idComment, @RequestParam Long idComponent) {
         computerComponentService.deleteComment(idComment);
-        return "redirect:/cloth/" + idComponent;
+        return "redirect:/component/" + idComponent;
     }
 }

@@ -19,10 +19,9 @@ import java.nio.file.Files;
 
 @Controller
 public class UserController {
-    @Value(upload.path)
+    @Value("${files.path}")
     private String imagePath;
     private final UserService userService;
-    private final UserMapper userMapper = Mappers.getMapper(UserMapper.class);
     public UserController(UserService userService) {
         this.userService = userService;
     }

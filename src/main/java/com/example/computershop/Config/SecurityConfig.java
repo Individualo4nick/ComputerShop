@@ -16,7 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @ComponentScan
 public class SecurityConfig {
     private final UserService userService;
-    private SecurityConfig(UserService userService) {
+    public SecurityConfig(UserService userService) {
         this.userService = userService;
     }
 
