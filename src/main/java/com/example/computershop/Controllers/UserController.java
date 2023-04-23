@@ -23,8 +23,8 @@ public class UserController {
     private String imagePath;
     private final UserService userService;
     private final UserMapper userMapper = Mappers.getMapper(UserMapper.class);
-    public UserController(UserService service) {
-        userService = service;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("/registration")

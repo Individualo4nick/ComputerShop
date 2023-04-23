@@ -17,4 +17,12 @@ public class ComputerComponent{
     private String description;
     private int price;
     private int warranty_in_month;
+
+    public ComputerComponent(String title, String producer, String description, int price, int warranty_in_month) {
+        this.title = title;
+        this.producer = producer;
+        this.description = description;
+        this.price = price;
+        this.warranty_in_month = warranty_in_month;
+    }
 }
