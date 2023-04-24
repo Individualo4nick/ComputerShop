@@ -22,6 +22,7 @@ public class UserController {
     @Value("${files.path}")
     private String imagePath;
     private final UserService userService;
+    private UserMapper userMapper;
     public UserController(UserService userService) {
         this.userService = userService;
     }

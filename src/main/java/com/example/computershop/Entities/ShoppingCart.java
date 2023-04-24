@@ -16,5 +16,14 @@ public class ShoppingCart{
     private User user;
     @OneToOne
     private ComputerComponent computerComponent;
+
+    public ShoppingCart(User user, ComputerComponent computerComponent) {
+        this.user = user;
+        this.computerComponent = computerComponent;
+    }
+
+    public ShoppingCart() {
+
+    }
 }
 
