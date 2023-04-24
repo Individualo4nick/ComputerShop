@@ -23,4 +23,8 @@ public class Comment{
         this.userid = userid;
         this.text = text;
     }
+
+    public Comment() {
+
+    }
 }

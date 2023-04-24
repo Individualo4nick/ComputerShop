@@ -27,4 +27,8 @@ public class ComputerComponent{
         this.price = price;
         this.warranty_in_month = warranty_in_month;
     }
+
+    public ComputerComponent() {
+
+    }
 }
