@@ -24,9 +24,9 @@ public class AdminController {
     }
     @PostMapping("/create_page")
     public String postPage(@RequestParam String title, @RequestParam String producer,
-                           @RequestParam String discription, @RequestParam int price,
+                           @RequestParam String discription, @RequestParam String category, @RequestParam int price,
                            @RequestParam int warranty_in_month, @RequestParam MultipartFile img) throws NoSuchAlgorithmException {
-        ComputerComponent computerComponent = new ComputerComponent(title, producer, discription, price, warranty_in_month);
+        ComputerComponent computerComponent = new ComputerComponent(title, producer, discription, category, price, warranty_in_month);
         computerComponentService.addComponent(computerComponent, img);
         return "redirect:/component/all";
     }

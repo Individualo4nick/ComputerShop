@@ -16,4 +16,11 @@ public class Comment{
     private Long componentid;
     private Long userid;
     private String text;
+
+    public Comment(String username, Long componentid, Long userid, String text) {
+        this.username = username;
+        this.componentid = componentid;
+        this.userid = userid;
+        this.text = text;
+    }
 }

@@ -15,13 +15,15 @@ public class ComputerComponent{
     private String title;
     private String producer;
     private String description;
+    private String category;
     private int price;
     private int warranty_in_month;
 
-    public ComputerComponent(String title, String producer, String description, int price, int warranty_in_month) {
+    public ComputerComponent(String title, String producer, String description, String category, int price, int warranty_in_month) {
         this.title = title;
         this.producer = producer;
         this.description = description;
+        this.category = category;
         this.price = price;
         this.warranty_in_month = warranty_in_month;
     }
