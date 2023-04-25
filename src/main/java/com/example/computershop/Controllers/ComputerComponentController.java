@@ -37,7 +37,7 @@ public class ComputerComponentController {
         model.addAttribute("allWarranty", computerComponentService.getAllWarranty());
         model.addAttribute("allComponent", computerComponentService.getAllComponent());
         model.addAttribute("path", imagePath);
-        return "get_all_components";
+        return "get_all_component";
     }
 
     @PostMapping(value = "/all/filter", produces = {MediaType.APPLICATION_JSON_VALUE})
