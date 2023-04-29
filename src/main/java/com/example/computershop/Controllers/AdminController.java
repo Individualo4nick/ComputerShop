@@ -1,10 +1,8 @@
 package com.example.computershop.Controllers;
 
 import com.example.computershop.Entities.ComputerComponent;
-import com.example.computershop.Mappers.UserMapper;
 import com.example.computershop.Services.ComputerComponentService;
-import com.example.computershop.Services.UserService;
-import org.mapstruct.factory.Mappers;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,9 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.security.NoSuchAlgorithmException;
 
+@Controller
 public class AdminController {
     private final ComputerComponentService computerComponentService;
-    private final UserMapper userMapper = Mappers.getMapper(UserMapper.class);
     public AdminController(ComputerComponentService computerComponentService) {
         this.computerComponentService = computerComponentService;
     }

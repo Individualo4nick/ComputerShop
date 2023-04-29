@@ -6,6 +6,8 @@ import com.example.computershop.ForFilter;
 import com.example.computershop.Services.ComputerComponentService;
 import com.example.computershop.Services.ShoppingCartService;
 import com.example.computershop.Services.UserService;
+import java.io.File;
+import java.io.IOException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.Files;
 import java.util.List;
 
 
@@ -32,7 +35,7 @@ public class ComputerComponentController {
 
     @GetMapping("/all")
     public String getAllComponents(Model model) {
-        model.addAttribute("allCaregory", computerComponentService.getAllCategory());
+        model.addAttribute("allCategory", computerComponentService.getAllCategory());
         model.addAttribute("allProducer", computerComponentService.getAllProducer());
         model.addAttribute("allWarranty", computerComponentService.getAllWarranty());
         model.addAttribute("allComponent", computerComponentService.getAllComponent());
@@ -46,6 +49,7 @@ public class ComputerComponentController {
         model.addAttribute("allProducer", computerComponentService.getAllProducer());
         model.addAttribute("allWarranty", computerComponentService.getAllWarranty());
         model.addAttribute("allComponent", computerComponentService.filterComponent(filter));
+        model.addAttribute("path", imagePath);
         return "get_filter_components";
     }
 
@@ -64,6 +68,14 @@ public class ComputerComponentController {
         }
         return "redirect:/component/" + componentid;
     }
+
+    @GetMapping("/image/{name}")
+    @ResponseBody
+    public byte[] getImage(@PathVariable String name) throws IOException {
+        File serverFile = computerComponentService.getComponentImage(name);
+        return Files.readAllBytes(serverFile.toPath());
+    }
+
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/shopping_cart")
     public String getShoppingCart(@AuthenticationPrincipal User user, Model model) {
@@ -82,7 +94,7 @@ public class ComputerComponentController {
     @PostMapping("/delete_from_shopping_cart")
     public String deleteFromBasket(@AuthenticationPrincipal User user, @RequestParam Long id) {
         shoppingCartService.deleteFromShoppingCart(id);
-        return "redirect:/cloth/basket";
+        return "redirect:/component/shopping_cart";
     }
 
     @PreAuthorize("isAuthenticated()")

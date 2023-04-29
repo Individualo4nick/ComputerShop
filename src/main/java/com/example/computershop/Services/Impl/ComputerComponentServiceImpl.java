@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Objects;
+import java.io.FilenameFilter;
 
 @Service
 public class ComputerComponentServiceImpl implements ComputerComponentService {
@@ -22,10 +23,12 @@ public class ComputerComponentServiceImpl implements ComputerComponentService {
     private String filesPath;
     private final ComputerComponentRepository computerComponentRepository;
     private final CommentRepository commentRepository;
-    public ComputerComponentServiceImpl(ComputerComponentRepository computerComponentRepository, CommentRepository commentRepository){
+
+    public ComputerComponentServiceImpl(ComputerComponentRepository computerComponentRepository, CommentRepository commentRepository) {
         this.computerComponentRepository = computerComponentRepository;
         this.commentRepository = commentRepository;
     }
+
     @Override
     public void addComment(Comment comment) {
         commentRepository.save(comment);
@@ -33,12 +36,12 @@ public class ComputerComponentServiceImpl implements ComputerComponentService {
 
     @Override
     public boolean addComponent(ComputerComponent computerComponent, MultipartFile image) throws NoSuchAlgorithmException {
-        if(computerComponentRepository.existsByTitle(computerComponent.getTitle())) {
+        if (computerComponentRepository.existsByTitle(computerComponent.getTitle())) {
             return false;
         }
-        if(!image.isEmpty()) {
+        if (!image.isEmpty()) {
             try {
-                image.transferTo(new File(filesPath + "/imageOfComponent/"+ computerComponent.getTitle()
+                image.transferTo(new File(filesPath + "/imageOfComponent/" + computerComponent.getTitle()
                         + "." + Objects.requireNonNull(image.getOriginalFilename()).split("\\.")[1]));
             } catch (IOException e) {
                 e.printStackTrace();
@@ -88,21 +91,35 @@ public class ComputerComponentServiceImpl implements ComputerComponentService {
     @Override
     public Object filterComponent(ForFilter filter) {
         List<ComputerComponent> filterComponent = computerComponentRepository.findAll();
-        if(filter.title != null && !filter.title.isEmpty()) {
+        if (filter.title != null && !filter.title.isEmpty()) {
             filterComponent = filterComponent.stream().filter(f -> f.getTitle().contains(filter.title)).toList();
         }
-        if(filter.producers!= null && filter.producers.size() != 0) {
+        if (filter.producers != null && filter.producers.size() != 0) {
             filterComponent = filterComponent.stream().filter(f -> filter.producers.contains(f.getProducer())).toList();
         }
-        if(filter.warranties_in_month != null && filter.warranties_in_month.size() != 0) {
+        if (filter.warranties_in_month != null && filter.warranties_in_month.size() != 0) {
             filterComponent = filterComponent.stream().filter(f -> filter.warranties_in_month.contains(f.getWarranty_in_month())).toList();
 
         }
         if (filter.minPrice != -1) {
-            filterComponent = filterComponent.stream().filter(f->f.getPrice() >= filter.minPrice).toList();
+            filterComponent = filterComponent.stream().filter(f -> f.getPrice() >= filter.minPrice).toList();
         }
-        if (filter.maxPrice != -1) {filterComponent = filterComponent.stream().filter(f->f.getPrice() <= filter.maxPrice).toList();
+        if (filter.maxPrice != -1) {
+            filterComponent = filterComponent.stream().filter(f -> f.getPrice() <= filter.maxPrice).toList();
         }
         return filterComponent;
+    }
+
+
+    @Override
+    public File getComponentImage(String componentTitle) {
+        File f = new File(filesPath + "/imageOfComponent/");
+        File[] matchingFiles = f.listFiles(new FilenameFilter() {
+            public boolean accept(File dir, String name) {
+                return name.startsWith(componentTitle);
+            }
+        });
+
+        return matchingFiles[0];
     }
 }

@@ -16,10 +16,15 @@ public class ShoppingCart{
     private User user;
     @OneToOne
     private ComputerComponent computerComponent;
+    private int count = 0;
 
     public ShoppingCart(User user, ComputerComponent computerComponent) {
         this.user = user;
         this.computerComponent = computerComponent;
+    }
+
+    public void incrementCount(){
+        this.count++;
     }
 
     public ShoppingCart() {

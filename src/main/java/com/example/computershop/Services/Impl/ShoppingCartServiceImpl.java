@@ -9,6 +9,7 @@ import com.example.computershop.Services.ComputerComponentService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
@@ -24,7 +25,14 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public void addComponent(Long componentid, User user) {
         ComputerComponent computerComponent = computerComponentService.getComponentById(componentid);
         ShoppingCart shoppingCart = new ShoppingCart(user, computerComponent);
-        shoppingCartRepository.save(shoppingCart);
+        ShoppingCart shoppingCart1 = shoppingCartRepository.findByComputerComponentId(componentid);
+        if (shoppingCart1==null) {
+            shoppingCartRepository.save(shoppingCart);
+        }
+        else{
+            shoppingCart1.incrementCount();
+            shoppingCartRepository.save(shoppingCart1);
+        }
     }
 
     @Override

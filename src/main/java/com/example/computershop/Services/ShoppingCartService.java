@@ -14,4 +14,5 @@ public interface ShoppingCartService {
     boolean pay(List<Long> componentsId, User user);
 
     void deleteFromShoppingCart(Long id);
+
 }
