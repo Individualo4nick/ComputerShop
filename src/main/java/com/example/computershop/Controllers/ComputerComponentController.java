@@ -92,10 +92,25 @@ public class ComputerComponentController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/delete_from_shopping_cart")
-    public String deleteFromBasket(@AuthenticationPrincipal User user, @RequestParam Long id) {
+    public String deleteFromShoppingCart(@AuthenticationPrincipal User user, @RequestParam Long id) {
         shoppingCartService.deleteFromShoppingCart(id);
         return "redirect:/component/shopping_cart";
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/increment_in_shopping_cart")
+    public String incrementInShoppingCart(@AuthenticationPrincipal User user, @RequestParam Long id) {
+        shoppingCartService.incrementInShoppingCart(id);
+        return "redirect:/component/shopping_cart";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/decrement_in_shopping_cart")
+    public String decrementInShoppingCart(@AuthenticationPrincipal User user, @RequestParam Long id) {
+        shoppingCartService.decrementInShoppingCart(id);
+        return "redirect:/component/shopping_cart";
+    }
+
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/send_comment")

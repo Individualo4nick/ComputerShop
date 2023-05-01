@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:insert="~{header_component.html}"></div>
+
+
+<form action="#" method="post"  enctype="multipart/form-data" style="display: flex; flex-direction: column">
+    <label for="title">Title</label>
+    <input id="title" type="text" name="title" required>
+
+    <label for="discription">Description</label>
+    <input  id="discription" type="text" name="discription" required>
+
+    <label for="producer">Producer</label>
+    <input  id="producer" type="text" name="producer" required>
+
+    <label for="category">Category</label>
+    <input  id="category" type="text" name="category" required>
+
+    <label for="warranty_in_month">Warranty</label>
+    <input id="warranty_in_month" type="text" name="warranty_in_month" required>
+
+    <label for="price">Price</label>
+    <input  id="price" type="text" name="price" required>
+
+    <label for="img">Img</label>
+    <input  id="img" type="file" name="img" required>
+
+    <input type="submit" value="Create">
+
+</form>
+
+<script>
+    FormData
+    var object = {};
+    formData.forEach(function(value, key){
+        object[key] = value;
+    });
+    var json = JSON.stringify(object);
+
+</script>
+
+</body>
+</html>

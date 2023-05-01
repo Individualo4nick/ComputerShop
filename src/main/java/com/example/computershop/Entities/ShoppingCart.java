@@ -16,7 +16,7 @@ public class ShoppingCart{
     private User user;
     @OneToOne
     private ComputerComponent computerComponent;
-    private int count = 0;
+    private int count = 1;
 
     public ShoppingCart(User user, ComputerComponent computerComponent) {
         this.user = user;
@@ -25,6 +25,10 @@ public class ShoppingCart{
 
     public void incrementCount(){
         this.count++;
+    }
+
+    public void decrementCount(){
+        this.count--;
     }
 
     public ShoppingCart() {

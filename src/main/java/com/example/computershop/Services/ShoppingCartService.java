@@ -15,4 +15,7 @@ public interface ShoppingCartService {
 
     void deleteFromShoppingCart(Long id);
 
+    void incrementInShoppingCart(Long id);
+
+    void decrementInShoppingCart(Long id);
 }

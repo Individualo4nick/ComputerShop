@@ -24,9 +24,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public void addComponent(Long componentid, User user) {
         ComputerComponent computerComponent = computerComponentService.getComponentById(componentid);
-        ShoppingCart shoppingCart = new ShoppingCart(user, computerComponent);
         ShoppingCart shoppingCart1 = shoppingCartRepository.findByComputerComponentId(componentid);
         if (shoppingCart1==null) {
+            ShoppingCart shoppingCart = new ShoppingCart(user, computerComponent);
             shoppingCartRepository.save(shoppingCart);
         }
         else{
@@ -49,5 +49,22 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public void deleteFromShoppingCart(Long id) {
         shoppingCartRepository.deleteById(id);
+    }
+
+    @Override
+    public void incrementInShoppingCart(Long cartid) {
+        ShoppingCart shoppingCart1 = shoppingCartRepository.findByShoppingCartId(cartid);
+        shoppingCart1.incrementCount();
+        shoppingCartRepository.save(shoppingCart1);
+    }
+
+    @Override
+    public void decrementInShoppingCart(Long cartid) {
+        ShoppingCart shoppingCart1 = shoppingCartRepository.findByShoppingCartId(cartid);
+        shoppingCart1.decrementCount();
+        if (shoppingCart1.getCount()==0)
+            shoppingCartRepository.deleteById(cartid);
+        else
+            shoppingCartRepository.save(shoppingCart1);
     }
 }
