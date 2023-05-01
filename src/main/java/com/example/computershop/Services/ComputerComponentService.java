@@ -31,4 +31,6 @@ public interface ComputerComponentService {
     Object filterComponent(ForFilter filter);
 
     File getComponentImage(String componentTitle);
+
+    File getUserImage(String componentTitle);
 }

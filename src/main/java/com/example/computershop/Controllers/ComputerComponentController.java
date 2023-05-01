@@ -5,7 +5,6 @@ import com.example.computershop.Entities.User;
 import com.example.computershop.ForFilter;
 import com.example.computershop.Services.ComputerComponentService;
 import com.example.computershop.Services.ShoppingCartService;
-import com.example.computershop.Services.UserService;
 import java.io.File;
 import java.io.IOException;
 import org.springframework.beans.factory.annotation.Value;
@@ -62,7 +61,7 @@ public class ComputerComponentController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/addComponent/{componentid}")
-    public String addToBasket(@PathVariable Long componentid, @AuthenticationPrincipal User user) {
+    public String addToShoppingCart (@PathVariable Long componentid, @AuthenticationPrincipal User user) {
         if (user != null) {
             shoppingCartService.addComponent(componentid, user);
         }
@@ -76,6 +75,13 @@ public class ComputerComponentController {
         return Files.readAllBytes(serverFile.toPath());
     }
 
+    @GetMapping("/user_image/{name}")
+    @ResponseBody
+    public byte[] getUserImage(@PathVariable String name) throws IOException {
+        File serverFile = computerComponentService.getUserImage(name);
+        return Files.readAllBytes(serverFile.toPath());
+    }
+
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/shopping_cart")
     public String getShoppingCart(@AuthenticationPrincipal User user, Model model) {
@@ -85,28 +91,28 @@ public class ComputerComponentController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/shopping_cart")
-    public String getShoppingCart(@RequestParam List<Long> components_id, @AuthenticationPrincipal User user, Model model) {
+    public String getShoppingCart(@RequestParam List<Long> components_id, @AuthenticationPrincipal User user) {
         shoppingCartService.pay(components_id, user);
         return "redirect:/component/shopping_cart";
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/delete_from_shopping_cart")
-    public String deleteFromShoppingCart(@AuthenticationPrincipal User user, @RequestParam Long id) {
+    public String deleteFromShoppingCart(@RequestParam Long id) {
         shoppingCartService.deleteFromShoppingCart(id);
         return "redirect:/component/shopping_cart";
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/increment_in_shopping_cart")
-    public String incrementInShoppingCart(@AuthenticationPrincipal User user, @RequestParam Long id) {
+    public String incrementInShoppingCart(@RequestParam Long id) {
         shoppingCartService.incrementInShoppingCart(id);
         return "redirect:/component/shopping_cart";
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/decrement_in_shopping_cart")
-    public String decrementInShoppingCart(@AuthenticationPrincipal User user, @RequestParam Long id) {
+    public String decrementInShoppingCart(@RequestParam Long id) {
         shoppingCartService.decrementInShoppingCart(id);
         return "redirect:/component/shopping_cart";
     }
@@ -114,7 +120,7 @@ public class ComputerComponentController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/send_comment")
-    public String getShoppingCart(@RequestParam Long component_id, @RequestParam String some_comment, @AuthenticationPrincipal User user, Model model) {
+    public String getShoppingCart(@RequestParam Long component_id, @RequestParam String some_comment, @AuthenticationPrincipal User user) {
         Comment comment = new Comment(user.getName(), component_id, user.getId(), some_comment);
         computerComponentService.addComment(comment);
         return "redirect:/component/" + component_id;

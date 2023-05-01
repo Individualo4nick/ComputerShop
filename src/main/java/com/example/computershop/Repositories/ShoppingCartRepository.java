@@ -1,6 +1,5 @@
 package com.example.computershop.Repositories;
 
-import com.example.computershop.Entities.ComputerComponent;
 import com.example.computershop.Entities.ShoppingCart;
 import com.example.computershop.Entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;

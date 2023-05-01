@@ -97,6 +97,9 @@ public class ComputerComponentServiceImpl implements ComputerComponentService {
         if (filter.producers != null && filter.producers.size() != 0) {
             filterComponent = filterComponent.stream().filter(f -> filter.producers.contains(f.getProducer())).toList();
         }
+        if (filter.categories!= null && filter.categories.size() != 0) {
+            filterComponent = filterComponent.stream().filter(f -> filter.categories.contains(f.getCategory())).toList();
+        }
         if (filter.warranties_in_month != null && filter.warranties_in_month.size() != 0) {
             filterComponent = filterComponent.stream().filter(f -> filter.warranties_in_month.contains(f.getWarranty_in_month())).toList();
 
@@ -112,14 +115,34 @@ public class ComputerComponentServiceImpl implements ComputerComponentService {
 
 
     @Override
-    public File getComponentImage(String componentTitle) {
+    public File getComponentImage(String componentOrUserTitle) {
         File f = new File(filesPath + "/imageOfComponent/");
         File[] matchingFiles = f.listFiles(new FilenameFilter() {
             public boolean accept(File dir, String name) {
-                return name.startsWith(componentTitle);
+                return name.startsWith(componentOrUserTitle);
             }
         });
 
         return matchingFiles[0];
+    }
+
+    @Override
+    public File getUserImage(String userName) {
+        File f = new File(filesPath + "/imageOfUser/");
+        try {
+            File[] matchingFiles = f.listFiles(new FilenameFilter() {
+                public boolean accept(File dir, String name) {
+                    return name.startsWith(userName);
+                }
+            });
+            return matchingFiles[0];
+        } catch (Exception e) {
+            File[] matchingFiles = f.listFiles(new FilenameFilter() {
+                public boolean accept(File dir, String name) {
+                    return name.startsWith("anon");
+                }
+            });
+            return matchingFiles[0];
+        }
     }
 }
