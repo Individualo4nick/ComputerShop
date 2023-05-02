@@ -1,0 +1,10 @@
+<div style="display: flex" id="filter_components">
+    <div th:each="component : ${allComponent}" style="width: 150px">
+        <a style="text-decoration: none;" th:href="${'/component/' + component.id}">
+            <img width="150" height="150" th:src="${'/component/image/' + component.title}">
+            <p th:text="${component.title}"></p>
+            <p th:text="${component.description}"></p>
+            <p th:text="${component.price} + ' &#8381'"></p>
+        </a>
+    </div>
+</div>

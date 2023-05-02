@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Create page</title>
 </head>
 <body>
-<div th:insert="~{header_component.html}"></div>
+<div th:insert="~{header.html}"></div>
 
 
-<form action="#" method="post"  enctype="multipart/form-data" style="display: flex; flex-direction: column">
+<form method="post"  enctype="multipart/form-data" style="display: flex; flex-direction: column">
     <label for="title">Title</label>
     <input id="title" type="text" name="title" required>
 

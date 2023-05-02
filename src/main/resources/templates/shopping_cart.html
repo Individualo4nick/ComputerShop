@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping cart</title>
+</head>
+<body>
+<div th:insert="~{header.html}"></div>
+<h1>Your shopping cart:</h1>
+<div th:each="data : ${cartData}" style="display: flex">
+    <div style="display: flex">
+    <input type="checkbox" name="components_id" class="the_worst_class" th:value="${data.computerComponent.id}">
+    <div>
+        <img th:src="${'/component/image/' + data.computerComponent.getTitle()}" width="50" height="50">
+    </div>
+    <div style="padding: 10px">
+        <p th:text="${data.computerComponent.title + ' ' + data.computerComponent.producer}" title="name" th:href="${'/component/' + data.computerComponent.id}"></p>
+    </div>
+    <div style="padding: 10px">
+        <p id="price" th:text="'price: ' + ${data.computerComponent.price}+ ' &#8381'"></p>
+    </div>
+    <div style="padding: 10px">
+        <p id="warranty" th:text="'warranty: ' +${data.computerComponent.getWarranty_in_month()}"></p>
+    </div>
+    <div style="padding: 10px">
+        <p id="count" th:text="${'count: ' + data.count}"></p>
+    </div>
+    <form method="post" action="/component/decrement_in_shopping_cart">
+            <input hidden th:value="${data.id}" name="id">
+        <input type="submit" value="-">
+    </form>
+    <form method="post" action="/component/increment_in_shopping_cart">
+        <input hidden th:value="${data.id}" name="id">
+        <input type="submit" value="+">
+    </form>
+    <form method="post" action="/component/delete_from_shopping_cart">
+        <input hidden th:value="${data.id}" name="id">
+        <input type="submit" value="X">
+    </form>
+    </div>
+</div>
+<button id="pay">Pay</button>
+<script>
+    let filterButton = document.getElementById("pay")
+    filterButton.addEventListener('click', ()=> {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"][class="the_worst_class"]');
+        const selectedValues = [];
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                selectedValues.push(checkbox.value);
+            }
+        });
+        const formData = new FormData();
+        selectedValues.forEach(value => {
+            formData.append('components_id', value);
+        });
+        fetch('/component/shopping_cart', {
+            method: 'POST',
+            body: formData
+        }).then(response => {
+            window.location.href = "/component/shopping_cart";
+        });
+
+    });
+</script>
+<div style="padding: 10px">
+    <p id="resultPrice" th:text="${'Total price: ' + T(com.example.computershop.ForSum).sum(cartData) + '&#8381'}"></p>
+</div>
+
+<script type="text/javascript">
+    function check(field, flag) {
+        if (flag===1) { for (i=0; i<field.length; i++) field[i].checked = true; }
+        else { for (i=0; i<field.length; i++) field[i].checked = false; }
+    }
+</script>
+<input type="button" value="Select all" onclick='check(document.getElementsByClassName("the_worst_class"), 1)'>
+<input type="button" value="Deselect" onclick='check(document.getElementsByClassName("the_worst_class"), 0)'>
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All components</title>
+</head>
+<body>
+
+<div th:insert="~{header.html}"></div>
+
+<div style="display: flex">
+    <div id="filter" style="display: flex">
+        <label>Title</label>
+        <input name="title" id="title" style="width: 100px; height: fit-content">
+        <div style="display: flex; flex-direction: column; width: 150px">
+            <p>Choose category</p>
+            <input type="checkbox" name="categories" th:each="category : ${allCategory}" th:value="${category}" th:text="${category}">
+        </div>
+        <div style="display: flex; flex-direction: column; width: 150px">
+            <p>Choose producer</p>
+            <input type="checkbox" name="producers" th:each="producer : ${allProducer}" th:value="${producer}" th:text="${producer}">
+        </div>
+        <div style="display: flex; flex-direction: column; width: 150px">
+            <p>Choose warranty</p>
+            <input type="checkbox" name="warranties_in_month" th:each="warranty : ${allWarranty}" th:value="${warranty}" th:text="${warranty}">
+        </div>
+        <label>Minimal Price<input id="minPrice" name="minPrice" value="-1"></label>
+        <label>Maximal Price<input id="maxPrice" name="maxPrice" value="-1"></label>
+
+        <button style="width: fit-content;height: fit-content" id="filterComponents">Filter components</button>
+        <script>
+            let filterObj = {
+                title: null,
+                categories: [],
+                producers: [],
+                warranties_in_month: [],
+                minPrice: -1,
+                maxPrice: -1
+            }
+            let filterButton = document.getElementById('filterComponents')
+            filterButton.addEventListener('click', ()=> {
+                filterObj.title = document.getElementById('title').value;
+
+                let categories = document.querySelectorAll('input[name=categories]:checked');
+
+                for (let i = 0 ;i < categories.length;i++) {
+                    filterObj.categories.push(categories[i].value);
+                }
+                let producers = document.querySelectorAll('input[name=producers]:checked');
+                for (let i =0 ;i < producers.length;i++) {
+                    filterObj.producers.push(producers[i].value);
+                }
+                let warranties_in_month = document.querySelectorAll('input[name=warranties_in_month]:checked');
+                for (let i =0 ;i < warranties_in_month.length;i++) {
+                    filterObj.warranties_in_month.push(warranties_in_month[i].value);
+                }
+                filterObj.minPrice = Number(document.getElementById('minPrice').value);
+                filterObj.maxPrice = Number(document.getElementById('maxPrice').value);
+
+                fetch("/component/all/filter",
+                    {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        method: "POST",
+                        body: JSON.stringify(filterObj)
+                    })
+                    .then(function(res){ return res.text(); })
+                    .then(function(html){ document.getElementById("filter_components").innerHTML = html;
+                        filterObj = {
+                        title: null,
+                        categories: [],
+                        producers: [],
+                        warranties_in_month: [],
+                        minPrice: -1,
+                        maxPrice: -1
+                    }});
+
+            });
+        </script>
+    </div>
+
+</div>
+<div style="display: flex" id="filter_components">
+    <div th:each="component : ${allComponent}" style="width: 150px">
+        <a style="text-decoration: none;" th:href="${'/component/' + component.id}">
+            <img width="150" height="150" th:src="${'/component/image/' + component.title}">
+            <p th:text="${component.title}"></p>
+            <p th:text="${component.description}"></p>
+            <p th:text="${component.price} + ' &#8381'"></p>
+        </a>
+
+    </div>
+
+</div>
+
+</div>
+
+</body>
+</html>

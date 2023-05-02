@@ -4,10 +4,10 @@
     <title>Log-in</title>
 </head>
 <body>
-<div th:insert="~{header_component.html}"></div>
+<div th:insert="~{header.html}"></div>
 
 <div th:if="${param.error}">
-    Invalid username and password.
+    Invalid username or password.
 </div>
 <div th:if="${param.logout}">
     You have been logged out.

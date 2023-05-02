@@ -1,6 +1,5 @@
 package com.example.computershop.Controllers;
 
-import com.example.computershop.Entities.ComputerComponent;
 import com.example.computershop.Entities.User;
 import com.example.computershop.Services.UserService;
 import org.springframework.beans.factory.annotation.Value;

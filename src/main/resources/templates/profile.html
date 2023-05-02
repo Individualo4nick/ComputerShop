@@ -4,11 +4,11 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Profile</title>
 </head>
 
 <body>
-<div th:insert="~{header_component.html}"></div>
+<div th:insert="~{header.html}"></div>
 <div style="display: flex; flex-direction: column" >
     <label>Your profile: </label>
     <img width="200" height="200" th:src="${'/component/user_image/' + userid}">
@@ -17,7 +17,7 @@
         <p th:text="${'Surname: ' + surname}"></p>
         <p th:text="${'Country: ' + country}"></p>
         <p th:text="${'Email: ' + email}"></p>
-        <form action="#" method="post"  enctype="multipart/form-data" style="display: flex; flex-direction: column">
+        <form method="post"  enctype="multipart/form-data" style="display: flex; flex-direction: column">
             <label for="img">Edit image</label>
             <input  id="img" type="file" name="img">
             <input type="submit" value="Change image" style="width: 100px">
