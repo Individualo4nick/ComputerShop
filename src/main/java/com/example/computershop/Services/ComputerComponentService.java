@@ -33,4 +33,6 @@ public interface ComputerComponentService {
     File getComponentImage(String componentTitle);
 
     File getUserImage(String componentTitle);
+
+    void deletePage(Long idComponent);
 }

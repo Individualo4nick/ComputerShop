@@ -145,4 +145,9 @@ public class ComputerComponentServiceImpl implements ComputerComponentService {
             return matchingFiles[0];
         }
     }
+
+    @Override
+    public void deletePage(Long idComponent) {
+        computerComponentRepository.deleteById(idComponent);
+    }
 }

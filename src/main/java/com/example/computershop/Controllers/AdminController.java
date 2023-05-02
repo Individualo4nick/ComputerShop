@@ -29,8 +29,14 @@ public class AdminController {
         return "redirect:/component/all";
     }
     @PostMapping("/delete_comment")
-    public String DeleteComment(@RequestParam Long idComment, @RequestParam Long idComponent) {
+    public String deleteComment(@RequestParam Long idComment, @RequestParam Long idComponent) {
         computerComponentService.deleteComment(idComment);
         return "redirect:/component/" + idComponent;
+    }
+
+    @PostMapping("/delete_page")
+    public String deletePage(@RequestParam Long idComponent) {
+        computerComponentService.deletePage(idComponent);
+        return "redirect:/component/all";
     }
 }
