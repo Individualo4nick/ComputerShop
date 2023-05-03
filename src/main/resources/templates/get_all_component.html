@@ -20,23 +20,23 @@
             <p>Choose producer</p>
             <input type="checkbox" name="producers" th:each="producer : ${allProducer}" th:value="${producer}" th:text="${producer}">
         </div>
-        <label>Minimal Price<input id="minPrice" name="minPrice" value="-1"></label>
-        <label>Maximal Price<input id="maxPrice" name="maxPrice" value="-1"></label>
+        <label>Min Price<input id="minPrice" name="minPrice" value="0"></label>
+        <label>Max Price<input id="maxPrice" name="maxPrice" value="0"></label>
 
         <div style="display: flex; flex-direction: column; width: 150px">
             <p>Choose warranty</p>
             <input type="checkbox" name="warranties_in_month" th:each="warranty : ${allWarranty}" th:value="${warranty}" th:text="${warranty}">
         </div>
 
-        <button style="width: fit-content;height: fit-content" id="filterComponents">Filter components</button>
+        <button style="width: fit-content;height: fit-content" id="filterComponents">Filter</button>
         <script>
             let filterObj = {
                 title: null,
                 categories: [],
                 producers: [],
                 warranties_in_month: [],
-                minPrice: -1,
-                maxPrice: -1
+                minPrice: 0,
+                maxPrice: 0
             }
             let filterButton = document.getElementById('filterComponents')
             filterButton.addEventListener('click', ()=> {
@@ -73,8 +73,8 @@
                         categories: [],
                         producers: [],
                         warranties_in_month: [],
-                        minPrice: -1,
-                        maxPrice: -1
+                        minPrice: 0,
+                        maxPrice: 0
                     }});
 
             });

@@ -7,9 +7,8 @@
 </head>
 <body>
 <div th:insert="~{header.html}"></div>
-<h1>Your shopping cart:</h1>
 <div th:each="data : ${cartData}" style="display: flex; background: #90EE90">
-    <div style="display: flex; background: #98FB98; margin-bottom: 10px; text-align: center;">
+    <div style="display: flex; background: #98FB98; margin-bottom: 10px; text-align: center">
         <input type="checkbox" name="components_id" class="the_worst_class" th:value="${data.computerComponent.id}">
         <div>
             <img th:src="${'/component/image/' + data.computerComponent.getTitle()}" width="50" height="50">

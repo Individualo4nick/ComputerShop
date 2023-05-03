@@ -104,10 +104,10 @@ public class ComputerComponentServiceImpl implements ComputerComponentService {
             filterComponent = filterComponent.stream().filter(f -> filter.warranties_in_month.contains(f.getWarranty_in_month())).toList();
 
         }
-        if (filter.minPrice != -1) {
+        if (filter.minPrice != 0) {
             filterComponent = filterComponent.stream().filter(f -> f.getPrice() >= filter.minPrice).toList();
         }
-        if (filter.maxPrice != -1) {
+        if (filter.maxPrice != 0) {
             filterComponent = filterComponent.stream().filter(f -> f.getPrice() <= filter.maxPrice).toList();
         }
         return filterComponent;

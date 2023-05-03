@@ -20,13 +20,11 @@
         </div>
         <img width="300" height="300" th:src="${'/component/image/' + componentData.title}">
         <div style="display: block">
-            <p style="font-size: 20px" th:text="${'Price: ' + componentData.price + ' &#8381'}"></p>
-            <p th:text="${componentData.producer + ' ' + componentData.title}"></p>
+            <p style="font-size: 20px" th:text="${componentData.producer + ' ' + componentData.title}"></p>
             <p th:text="${'Warranty: ' + componentData.warranty_in_month + ' months'}"></p>
+            <p th:text="${componentData.description}"></p>
+            <p th:text="${'Price: ' + componentData.price + ' &#8381'}"></p>
         </div>
-    </div>
-    <div>
-        <p th:text="${componentData.description}"></p>
     </div>
     <form sec:authorize="isAuthenticated()"  th:action="${'/component/addComponent/' + componentData.id}" method="post">
         <input type="submit" value="Add to shopping cart"></form>
@@ -45,10 +43,10 @@
 
     <h4>All comments</h4>
     <div>
-        <div th:each="comment,iterStat : ${comments}" >
+        <div th:each="comment,iterStat : ${comments}" style="display: flex">
             <div style="display: flex">
                 <img width="30" height="30" th:src="${'/component/user_image/' + comment.getUserid()}">
-                <p th:text="${comment.getUsername()}"></p><br>
+                <p th:text="${comment.getUsername()}" style="margin-right: 5px"></p>
             </div>
             <p th:text="${comment.getText}" style="background: #D3D3D3;"></p>
             <form action="/delete_comment" method="post" sec:authorize="hasAnyAuthority('ADMIN')" th:id="'form-' + ${comment.getId()}">
