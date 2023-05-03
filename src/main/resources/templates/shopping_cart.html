@@ -8,36 +8,36 @@
 <body>
 <div th:insert="~{header.html}"></div>
 <h1>Your shopping cart:</h1>
-<div th:each="data : ${cartData}" style="display: flex">
-    <div style="display: flex">
-    <input type="checkbox" name="components_id" class="the_worst_class" th:value="${data.computerComponent.id}">
-    <div>
-        <img th:src="${'/component/image/' + data.computerComponent.getTitle()}" width="50" height="50">
-    </div>
-    <div style="padding: 10px">
-        <p th:text="${data.computerComponent.title + ' ' + data.computerComponent.producer}" title="name" th:href="${'/component/' + data.computerComponent.id}"></p>
-    </div>
-    <div style="padding: 10px">
-        <p id="price" th:text="'price: ' + ${data.computerComponent.price}+ ' &#8381'"></p>
-    </div>
-    <div style="padding: 10px">
-        <p id="warranty" th:text="'warranty: ' +${data.computerComponent.getWarranty_in_month()}"></p>
-    </div>
-    <div style="padding: 10px">
-        <p id="count" th:text="${'count: ' + data.count}"></p>
-    </div>
-    <form method="post" action="/component/decrement_in_shopping_cart">
+<div th:each="data : ${cartData}" style="display: flex; background: #90EE90">
+    <div style="display: flex; background: #98FB98; margin-bottom: 10px; text-align: center;">
+        <input type="checkbox" name="components_id" class="the_worst_class" th:value="${data.computerComponent.id}">
+        <div>
+            <img th:src="${'/component/image/' + data.computerComponent.getTitle()}" width="50" height="50">
+        </div>
+        <div style="padding: 10px">
+            <p th:text="${data.computerComponent.title + ' ' + data.computerComponent.producer}" title="name" th:href="${'/component/' + data.computerComponent.id}"></p>
+        </div>
+        <div style="padding: 10px">
+            <p id="price" th:text="'price: ' + ${data.computerComponent.price}+ ' &#8381'"></p>
+        </div>
+        <div style="padding: 10px">
+            <p id="warranty" th:text="'warranty: ' +${data.computerComponent.getWarranty_in_month() + ' months'}"></p>
+        </div>
+        <div style="padding: 10px">
+            <p id="count" th:text="${'count: ' + data.count}"></p>
+        </div>
+        <form method="post" action="/component/decrement_in_shopping_cart">
             <input hidden th:value="${data.id}" name="id">
-        <input type="submit" value="-">
-    </form>
-    <form method="post" action="/component/increment_in_shopping_cart">
-        <input hidden th:value="${data.id}" name="id">
-        <input type="submit" value="+">
-    </form>
-    <form method="post" action="/component/delete_from_shopping_cart">
-        <input hidden th:value="${data.id}" name="id">
-        <input type="submit" value="X">
-    </form>
+            <input type="submit" value="-">
+        </form>
+        <form method="post" action="/component/increment_in_shopping_cart">
+            <input hidden th:value="${data.id}" name="id">
+            <input type="submit" value="+">
+        </form>
+        <form method="post" action="/component/delete_from_shopping_cart">
+            <input hidden th:value="${data.id}" name="id">
+            <input type="submit" value="X">
+        </form>
     </div>
 </div>
 <button id="pay">Pay</button>

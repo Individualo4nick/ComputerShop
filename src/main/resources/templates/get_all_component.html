@@ -9,7 +9,7 @@
 <div th:insert="~{header.html}"></div>
 
 <div style="display: flex">
-    <div id="filter" style="display: flex">
+    <div id="filter" style="display: flex; background: #B0C4DE">
         <label>Title</label>
         <input name="title" id="title" style="width: 100px; height: fit-content">
         <div style="display: flex; flex-direction: column; width: 150px">
@@ -20,12 +20,13 @@
             <p>Choose producer</p>
             <input type="checkbox" name="producers" th:each="producer : ${allProducer}" th:value="${producer}" th:text="${producer}">
         </div>
+        <label>Minimal Price<input id="minPrice" name="minPrice" value="-1"></label>
+        <label>Maximal Price<input id="maxPrice" name="maxPrice" value="-1"></label>
+
         <div style="display: flex; flex-direction: column; width: 150px">
             <p>Choose warranty</p>
             <input type="checkbox" name="warranties_in_month" th:each="warranty : ${allWarranty}" th:value="${warranty}" th:text="${warranty}">
         </div>
-        <label>Minimal Price<input id="minPrice" name="minPrice" value="-1"></label>
-        <label>Maximal Price<input id="maxPrice" name="maxPrice" value="-1"></label>
 
         <button style="width: fit-content;height: fit-content" id="filterComponents">Filter components</button>
         <script>
@@ -82,8 +83,8 @@
 
 </div>
 <div style="display: flex" id="filter_components">
-    <div th:each="component : ${allComponent}" style="width: 150px">
-        <a style="text-decoration: none;" th:href="${'/component/' + component.id}">
+    <div th:each="component : ${allComponent}" style="width: 150px; background: #00BFFF; margin: 5px">
+        <a style="text-decoration: none" th:href="${'/component/' + component.id}">
             <img width="150" height="150" th:src="${'/component/image/' + component.title}">
             <p th:text="${component.title}"></p>
             <p th:text="${component.description}"></p>

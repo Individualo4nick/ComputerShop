@@ -1,5 +1,5 @@
 <div style="display: flex" id="filter_components">
-    <div th:each="component : ${allComponent}" style="width: 150px">
+    <div th:each="component : ${allComponent}" style="width: 150px; background: #00BFFF; margin: 5px">
         <a style="text-decoration: none;" th:href="${'/component/' + component.id}">
             <img width="150" height="150" th:src="${'/component/image/' + component.title}">
             <p th:text="${component.title}"></p>

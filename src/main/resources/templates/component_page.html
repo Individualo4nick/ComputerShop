@@ -11,52 +11,51 @@
 <div th:insert="~{header.html}"></div>
 
 <div>
-    <div style="display: flex; width: 100%">
-        <img width="300" height="300" th:src="${'/component/image/' + componentData.title}">
-        <div style="display: block">
-            <p style="font-size: 20px" th:text="${'Price: ' + componentData.price}"></p>
-            <p th:text="${componentData.title + ' by ' + componentData.producer}"></p>
-        </div>
+    <div style="width: 100%">
         <div sec:authorize="hasAnyAuthority('ADMIN')">
             <form action="/delete_page" id="delete_page" method="post">
                 <input hidden name="idComponent" type="number" th:value="${componentData.id}" >
                 <input type="submit" value="Delete page">
             </form>
         </div>
-
+        <img width="300" height="300" th:src="${'/component/image/' + componentData.title}">
+        <div style="display: block">
+            <p style="font-size: 20px" th:text="${'Price: ' + componentData.price + ' &#8381'}"></p>
+            <p th:text="${componentData.producer + ' ' + componentData.title}"></p>
+            <p th:text="${'Warranty: ' + componentData.warranty_in_month + ' months'}"></p>
+        </div>
     </div>
-    <form sec:authorize="isAuthenticated()"  th:action="${'/component/addComponent/' + componentData.id}" method="post">
-        <input type="submit" value="Add to shopping cart"></form>
     <div>
         <p th:text="${componentData.description}"></p>
     </div>
+    <form sec:authorize="isAuthenticated()"  th:action="${'/component/addComponent/' + componentData.id}" method="post">
+        <input type="submit" value="Add to shopping cart"></form>
 </div>
 
 <div>
-    <h4 sec:authorize="isAuthenticated()">Leave Comment</h4>
+    <h4 sec:authorize="isAuthenticated()">Write a comment</h4>
     <div sec:authorize="isAuthenticated()">
         <form action="/component/send_comment" id="send_comment" method="post" >
             <input hidden name="component_id" type="number" th:value="${componentData.id}" >
-            <textarea name="some_comment"  cols="50" rows="5"></textarea>
-            <input type="submit" value="Send"></input>
+            <textarea name="some_comment"  cols="50" rows="7"></textarea><br>
+            <input type="submit" value="Send">
         </form>
 
     </div>
 
-
     <h4>All comments</h4>
     <div>
         <div th:each="comment,iterStat : ${comments}" >
-            <form action="/delete_comment" method="post" sec:authorize="hasAnyAuthority('ADMIN')" th:id="'form-' + ${comment.getId()}" >
-                <input th:value="${comment.getId()}" name="idComment"  hidden>
-                <input th:value="${comment.getComponentid()}" name="idComponent" hidden>
-                <input type="submit" value="Delete">
-            </form>
             <div style="display: flex">
                 <img width="30" height="30" th:src="${'/component/user_image/' + comment.getUserid()}">
                 <p th:text="${comment.getUsername()}"></p><br>
             </div>
-            <p th:text="${comment.getText}"></p>
+            <p th:text="${comment.getText}" style="background: #D3D3D3;"></p>
+            <form action="/delete_comment" method="post" sec:authorize="hasAnyAuthority('ADMIN')" th:id="'form-' + ${comment.getId()}">
+                <input th:value="${comment.getId()}" name="idComment" hidden>
+                <input th:value="${comment.getComponentid()}" name="idComponent" hidden>
+                <input type="submit" value="Delete" style="display: flex; margin-bottom: 50px">
+            </form>
         </div>
     </div>
 </div>
