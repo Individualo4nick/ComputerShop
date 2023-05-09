@@ -16,9 +16,19 @@ public interface ComputerComponentService {
 
     void deleteComment(Long commentId);
 
+    File getComponentImage(String componentTitle);
+
+    File getUserImage(String componentTitle);
+
+    void deletePage(Long idComponent);
+
     List<Comment> getAllComment(Long idComponent);
 
     List<String> getAllCategory();
+
+    ComputerComponent getComponentById(Long id);
+
+    Object filterComponent(ForFilter filter);
 
     List<Integer>  getAllWarranty();
 
@@ -26,13 +36,4 @@ public interface ComputerComponentService {
 
     Iterable<ComputerComponent>  getAllComponent();
 
-    ComputerComponent getComponentById(Long id);
-
-    Object filterComponent(ForFilter filter);
-
-    File getComponentImage(String componentTitle);
-
-    File getUserImage(String componentTitle);
-
-    void deletePage(Long idComponent);
 }

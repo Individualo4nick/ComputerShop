@@ -39,6 +39,18 @@
         </form>
     </div>
 </div>
+<div style="padding: 10px">
+    <p id="resultPrice" th:text="${'Total price: ' + T(com.example.computershop.ForSum).sum(cartData) + '&#8381'}"></p>
+</div>
+
+<script type="text/javascript">
+    function check(field, flag) {
+        if (flag===1) { for (i=0; i<field.length; i++) field[i].checked = true; }
+        else { for (i=0; i<field.length; i++) field[i].checked = false; }
+    }
+</script>
+<input type="button" value="Select all" onclick='check(document.getElementsByClassName("the_worst_class"), 1)'>
+<input type="button" value="Deselect" onclick='check(document.getElementsByClassName("the_worst_class"), 0)'>
 <button id="pay">Pay</button>
 <script>
     let filterButton = document.getElementById("pay")
@@ -63,18 +75,7 @@
 
     });
 </script>
-<div style="padding: 10px">
-    <p id="resultPrice" th:text="${'Total price: ' + T(com.example.computershop.ForSum).sum(cartData) + '&#8381'}"></p>
-</div>
 
-<script type="text/javascript">
-    function check(field, flag) {
-        if (flag===1) { for (i=0; i<field.length; i++) field[i].checked = true; }
-        else { for (i=0; i<field.length; i++) field[i].checked = false; }
-    }
-</script>
-<input type="button" value="Select all" onclick='check(document.getElementsByClassName("the_worst_class"), 1)'>
-<input type="button" value="Deselect" onclick='check(document.getElementsByClassName("the_worst_class"), 0)'>
 
 </body>
 </html>

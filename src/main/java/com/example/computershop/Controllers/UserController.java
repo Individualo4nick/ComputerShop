@@ -30,9 +30,6 @@ public class UserController {
 
     @PostMapping("/registration")
     public String postRegistration(User user){
-//        if(userService.addUser(userMapper.UserDTOToUser(userDTO))){
-//            return "login";
-//        }
         if(userService.addUser(user)){
             return "login";
         }

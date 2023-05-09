@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  computershop:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres_db
+    environment:
+      - spring.datasource.url=jdbc:postgresql://postgres_db:5432/ComputerShop
+
+  postgres_db:
+    image: postgres
+    restart: always
+    networks:
+      - backend
+    volumes:
+      - ./sql/schema-postgresql.sql:/docker-entrypoint-initdb.d/create_tables.sql
+    environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=wtf2281337
+        - POSTGRES_DB=ComputerShop
+    ports:
+      - "5432:5432"
+
+
+networks:
+  backend:
+    driver: bridge

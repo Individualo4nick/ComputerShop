@@ -27,12 +27,12 @@
             <li sec:authorize="isAnonymous()"><a href="/registration">Registration</a></li>
             <li sec:authorize="isAuthenticated()" style="border-bottom: none;"><a href="/profile">Profile</a></li>
             <li sec:authorize="isAuthenticated()" style="border-bottom: none;"><a href="/component/shopping_cart">Shopping cart</a></li>
-            <li sec:authorize="hasAnyAuthority('ADMIN')" style="border-bottom: none"><a href="/create_page">Create page</a></li>
             <li sec:authorize="isAuthenticated()" >
                 <form th:action="@{/logout}" method="post">
                     <input type="submit" value="Log-Out"/>
                 </form>
             </li>
+            <li sec:authorize="hasAnyAuthority('ADMIN')" style="border-bottom: none"><a href="/create_page">Create page</a></li>
 
 
         </ul>
